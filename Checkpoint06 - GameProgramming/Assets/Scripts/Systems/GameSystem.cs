@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject[] mobs;
+    [SerializeField] private GameObject[] cats;
     [SerializeField] private GameObject[] thieves;
     [SerializeField] private Vector2 minSpawnPosition, maxSpawnPosition;
+    [SerializeField] private int numberOfCats;
+    [SerializeField] private int numberOfThieves;
 
     private void Start()
     {
@@ -16,21 +18,23 @@ public class GameSystem : MonoBehaviour
 
     private void SpawnMobs()
     {
-        for (int i = 0; i < mobs.Length; i++)
+        for (int i = 0; i < numberOfCats; i++)
         {
             float xPos = Random.Range(minSpawnPosition.x, maxSpawnPosition.x);
             float yPos = Random.Range(minSpawnPosition.y, maxSpawnPosition.y);
-            Instantiate(mobs[i], new Vector2( xPos, yPos), Quaternion.identity);
+            int cats = Random.Range(0, this.cats.Length);
+            Instantiate(this.cats[cats], new Vector2( xPos, yPos), Quaternion.identity);
         }
     }
 
     private void SpawnThieves()
     {
-        for (int i = 0; i < thieves.Length; i++)
+        for (int i = 0; i < numberOfThieves; i++)
         {
             float xPos = Random.Range(minSpawnPosition.x, maxSpawnPosition.x);
             float yPos = Random.Range(minSpawnPosition.y, maxSpawnPosition.y);
-            Instantiate(thieves[i], new Vector2(xPos, yPos), Quaternion.identity);
+            int thief = Random.Range(0, thieves.Length);
+            Instantiate(thieves[thief], new Vector2(xPos, yPos), Quaternion.identity);
         }
     }
 }
