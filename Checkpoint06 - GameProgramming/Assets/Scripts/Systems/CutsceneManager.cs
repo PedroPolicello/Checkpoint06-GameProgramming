@@ -6,6 +6,14 @@ public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private GameObject cutsceneCam;
     [SerializeField] private GameObject mainCam;
+    [SerializeField] private GameObject timerSystem;
+    [SerializeField] private GameObject SpawnerSystem;
+
+    private void Awake()
+    {
+        timerSystem.SetActive(false);
+        SpawnerSystem.SetActive(false);
+    }
 
     private void Start()
     {
@@ -28,6 +36,8 @@ public class CutsceneManager : MonoBehaviour
     {
         cutsceneCam.SetActive(false);
         mainCam.SetActive(true);
+        timerSystem.SetActive(true);
+        SpawnerSystem.SetActive(true);
     }
 
     private void CamMovementHandler()

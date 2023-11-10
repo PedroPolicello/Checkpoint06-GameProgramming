@@ -35,6 +35,42 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AnimUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3e156be-9241-4a51-a135-09508f6f8b46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnimDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""8df239e5-cd1b-4282-8cd8-b8f51b4f20eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnimLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cc95cde-f6cb-4f9d-9f53-4e766945f0d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnimRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce668bef-9107-4cbb-833f-a988fc7babfc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +128,50 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47c6f373-ca08-417c-a203-9c671ad98402"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnimUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c68c3cdc-266f-4911-92fb-82fc3202a92a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnimLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb5c2461-c001-4e24-a621-69dbfc546180"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnimRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cef7ced-fb07-4bba-9fc9-e9019fc02b19"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnimDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +181,10 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_AnimUp = m_Player.FindAction("AnimUp", throwIfNotFound: true);
+        m_Player_AnimDown = m_Player.FindAction("AnimDown", throwIfNotFound: true);
+        m_Player_AnimLeft = m_Player.FindAction("AnimLeft", throwIfNotFound: true);
+        m_Player_AnimRight = m_Player.FindAction("AnimRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +247,19 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_AnimUp;
+    private readonly InputAction m_Player_AnimDown;
+    private readonly InputAction m_Player_AnimLeft;
+    private readonly InputAction m_Player_AnimRight;
     public struct PlayerActions
     {
         private @InputControl m_Wrapper;
         public PlayerActions(@InputControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @AnimUp => m_Wrapper.m_Player_AnimUp;
+        public InputAction @AnimDown => m_Wrapper.m_Player_AnimDown;
+        public InputAction @AnimLeft => m_Wrapper.m_Player_AnimLeft;
+        public InputAction @AnimRight => m_Wrapper.m_Player_AnimRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +272,18 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @AnimUp.started += instance.OnAnimUp;
+            @AnimUp.performed += instance.OnAnimUp;
+            @AnimUp.canceled += instance.OnAnimUp;
+            @AnimDown.started += instance.OnAnimDown;
+            @AnimDown.performed += instance.OnAnimDown;
+            @AnimDown.canceled += instance.OnAnimDown;
+            @AnimLeft.started += instance.OnAnimLeft;
+            @AnimLeft.performed += instance.OnAnimLeft;
+            @AnimLeft.canceled += instance.OnAnimLeft;
+            @AnimRight.started += instance.OnAnimRight;
+            @AnimRight.performed += instance.OnAnimRight;
+            @AnimRight.canceled += instance.OnAnimRight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -187,6 +291,18 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @AnimUp.started -= instance.OnAnimUp;
+            @AnimUp.performed -= instance.OnAnimUp;
+            @AnimUp.canceled -= instance.OnAnimUp;
+            @AnimDown.started -= instance.OnAnimDown;
+            @AnimDown.performed -= instance.OnAnimDown;
+            @AnimDown.canceled -= instance.OnAnimDown;
+            @AnimLeft.started -= instance.OnAnimLeft;
+            @AnimLeft.performed -= instance.OnAnimLeft;
+            @AnimLeft.canceled -= instance.OnAnimLeft;
+            @AnimRight.started -= instance.OnAnimRight;
+            @AnimRight.performed -= instance.OnAnimRight;
+            @AnimRight.canceled -= instance.OnAnimRight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -207,5 +323,9 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnAnimUp(InputAction.CallbackContext context);
+        void OnAnimDown(InputAction.CallbackContext context);
+        void OnAnimLeft(InputAction.CallbackContext context);
+        void OnAnimRight(InputAction.CallbackContext context);
     }
 }

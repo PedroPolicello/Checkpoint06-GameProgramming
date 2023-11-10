@@ -7,9 +7,10 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Timer : MonoBehaviour
 {
 
+    [SerializeField] private float totalTime = 120;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private GameObject timesUpScreen;
     private float time;
-    private float totalTime = 120;
 
 
     void Update()
@@ -30,6 +31,7 @@ public class Timer : MonoBehaviour
         {
             Time.timeScale = 0;
             timerText.text = "00:00";
+            timesUpScreen.SetActive(true);
         }
 
     }
