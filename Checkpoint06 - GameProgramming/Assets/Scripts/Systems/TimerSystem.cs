@@ -6,12 +6,35 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer instance;
 
-    [SerializeField] private float totalTime = 120;
+    [SerializeField] private float choosedTime;
+    private float totalTime;
+
     [SerializeField] private TextMeshProUGUI timerText;
+
     [SerializeField] private GameObject timesUpScreen;
+    [SerializeField] private GameObject cutsceneSystem;
+    [SerializeField] private GameObject gameplay;
+    [SerializeField] private GameObject timerSystem;
     private float time;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Start()
+    {
+        totalTime = choosedTime;
+    }
 
     void Update()
     {
@@ -32,6 +55,9 @@ public class Timer : MonoBehaviour
             Time.timeScale = 0;
             timerText.text = "00:00";
             timesUpScreen.SetActive(true);
+            gameplay.SetActive(false);
+            cutsceneSystem.SetActive(false);
+            timerSystem.SetActive(false);
         }
 
     }

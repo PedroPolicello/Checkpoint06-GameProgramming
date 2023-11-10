@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class CutsceneManager : MonoBehaviour
 {
+    public static CutsceneManager instance;
+
     [SerializeField] private GameObject cutsceneCam;
     [SerializeField] private GameObject mainCam;
     [SerializeField] private GameObject timerSystem;
     [SerializeField] private GameObject SpawnerSystem;
+    [SerializeField] private GameObject cutsceneBG;
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         timerSystem.SetActive(false);
         SpawnerSystem.SetActive(false);
+        cutsceneBG.SetActive(true);
     }
 
-    private void Start()
+    public void Start()
     {
         SetCutsceneCamON();
         StartCoroutine(MovementEnd());
-    }
-
-    private void Update()
-    {
-        CamMovementHandler();
     }
 
     private void SetCutsceneCamON()
@@ -34,20 +42,17 @@ public class CutsceneManager : MonoBehaviour
 
     private void SetCutsceneCamOFF()
     {
-        cutsceneCam.SetActive(false);
-        mainCam.SetActive(true);
         timerSystem.SetActive(true);
         SpawnerSystem.SetActive(true);
-    }
-
-    private void CamMovementHandler()
-    {
-        cutsceneCam.transform.Translate(new Vector2(3f, 0) * Time.deltaTime);
     }
 
     IEnumerator MovementEnd()
     {
         yield return new WaitForSeconds(5f);
+        cutsceneCam.SetActive(false);
+        mainCam.SetActive(true);
+        cutsceneBG.SetActive(false);
+        yield return new WaitForSeconds(2f);
         SetCutsceneCamOFF();
     }
 

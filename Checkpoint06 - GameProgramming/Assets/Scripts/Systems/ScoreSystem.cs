@@ -9,6 +9,7 @@ public class ScoreSystem : MonoBehaviour
     public static ScoreSystem instance;
 
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreNumber;
     private int gameScore = 0;
 
 
@@ -40,5 +41,6 @@ public class ScoreSystem : MonoBehaviour
     public void UpdateScoreText(int updatedScore)
     {
         scoreText.text = updatedScore.ToString();
+        scoreNumber.text = updatedScore.ToString();
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public static PlayerBehavior instance;
+
     private InputControl inputControl;
     private Vector2 moveDirection;
 
@@ -20,6 +22,15 @@ public class PlayerBehavior : MonoBehaviour
 
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         inputControl = new InputControl();
 
         animator = GetComponent<Animator>();
