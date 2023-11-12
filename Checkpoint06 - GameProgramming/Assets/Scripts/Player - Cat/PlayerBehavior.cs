@@ -12,6 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 moveDirection;
 
     [SerializeField] private int speed;
+    [SerializeField] private GameObject pause;
 
     //Animations
     private bool isWalkUp;
@@ -38,6 +39,8 @@ public class PlayerBehavior : MonoBehaviour
         inputControl.Player.Movement.started += MoveHandler;
         inputControl.Player.Movement.performed += MoveHandler;
         inputControl.Player.Movement.canceled += MoveHandler;
+
+        inputControl.Player.PauseMenu.started += PauseMenu;
 
         inputControl.Player.AnimUp.started += SetAnimUp;
         inputControl.Player.AnimUp.canceled += CancelAnimUp;
@@ -77,6 +80,12 @@ public class PlayerBehavior : MonoBehaviour
             ScoreSystem.instance.SetScore(1);
             CharactersSpawner.instance.SpawnSingleThief();
         }
+    }
+
+    void PauseMenu(InputAction.CallbackContext value)
+    {
+        pause.SetActive(true);
+        Time.timeScale = 0;
     }
 
     void AnimationHandler()

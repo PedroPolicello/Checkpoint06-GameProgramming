@@ -71,6 +71,15 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""528077e1-285a-4a6e-897f-e616e93bd8a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
                     ""action"": ""AnimDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c1e5bed-179f-4d2d-9ed8-e459d6f402ba"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
         m_Player_AnimDown = m_Player.FindAction("AnimDown", throwIfNotFound: true);
         m_Player_AnimLeft = m_Player.FindAction("AnimLeft", throwIfNotFound: true);
         m_Player_AnimRight = m_Player.FindAction("AnimRight", throwIfNotFound: true);
+        m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AnimDown;
     private readonly InputAction m_Player_AnimLeft;
     private readonly InputAction m_Player_AnimRight;
+    private readonly InputAction m_Player_PauseMenu;
     public struct PlayerActions
     {
         private @InputControl m_Wrapper;
@@ -260,6 +282,7 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
         public InputAction @AnimDown => m_Wrapper.m_Player_AnimDown;
         public InputAction @AnimLeft => m_Wrapper.m_Player_AnimLeft;
         public InputAction @AnimRight => m_Wrapper.m_Player_AnimRight;
+        public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
             @AnimRight.started += instance.OnAnimRight;
             @AnimRight.performed += instance.OnAnimRight;
             @AnimRight.canceled += instance.OnAnimRight;
+            @PauseMenu.started += instance.OnPauseMenu;
+            @PauseMenu.performed += instance.OnPauseMenu;
+            @PauseMenu.canceled += instance.OnPauseMenu;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -303,6 +329,9 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
             @AnimRight.started -= instance.OnAnimRight;
             @AnimRight.performed -= instance.OnAnimRight;
             @AnimRight.canceled -= instance.OnAnimRight;
+            @PauseMenu.started -= instance.OnPauseMenu;
+            @PauseMenu.performed -= instance.OnPauseMenu;
+            @PauseMenu.canceled -= instance.OnPauseMenu;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -327,5 +356,6 @@ public partial class @InputControl: IInputActionCollection2, IDisposable
         void OnAnimDown(InputAction.CallbackContext context);
         void OnAnimLeft(InputAction.CallbackContext context);
         void OnAnimRight(InputAction.CallbackContext context);
+        void OnPauseMenu(InputAction.CallbackContext context);
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1933037595473714318}
   - component: {fileID: 2453871599532029717}
   - component: {fileID: 6457099281394606029}
+  - component: {fileID: -6339446766353648008}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Thief
@@ -120,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.625
 --- !u!114 &6457099281394606029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +137,30 @@ MonoBehaviour:
   minPosition: {x: -14, y: -8}
   maxPosition: {x: 14, y: 8}
   moveSpeed: 3
+--- !u!50 &-6339446766353648008
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5447454551465860845}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

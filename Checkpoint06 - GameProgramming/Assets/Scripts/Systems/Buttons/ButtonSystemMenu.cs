@@ -13,7 +13,6 @@ public class ButtonSystemMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject gameplay;
     [SerializeField] private GameObject cutsceneSystem;
-    [SerializeField] private Component cutsceneScript;
 
     void Start()
     {
